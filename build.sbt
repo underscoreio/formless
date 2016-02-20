@@ -1,6 +1,10 @@
-val cats = "org.spire-math" %% "cats" % "0.4.0-SNAPSHOT"
+val cats = "org.typelevel" %% "cats" % "0.4.1"
 val scalaTest = "org.scalatest" %% "scalatest" % "2.2.4" % "test"
-val simulacrum = "com.github.mpilquist" %% "simulacrum" % "0.5.0"
+val simulacrum = "com.github.mpilquist" %% "simulacrum" % "0.7.0"
+
+val circeCore = "io.circe" %% "circe-core" % "0.3.0"
+val circeGeneric = "io.circe" %% "circe-generic" % "0.3.0"
+val circeParser = "io.circe" %% "circe-parser" % "0.3.0"
 
 val finchCore = "com.github.finagle" %% "finch-core" % "0.10.0"
 val finchCirce = "com.github.finagle" %% "finch-circe" % "0.10.0"
@@ -35,7 +39,11 @@ val settings = Seq(
   resolvers ++= Seq(
     Resolver.sonatypeRepo("snapshots"), Resolver.sonatypeRepo("releases")
   ),
-  libraryDependencies ++= Seq(cats, simulacrum, scalaTest, macroParadise, kindProjector)
+  libraryDependencies ++= Seq(
+    cats, simulacrum, kindProjector,
+    circeCore, circeGeneric, circeParser,
+    scalaTest, macroParadise
+  )
 )
 
 lazy val formless = project.in(file(".")).settings(settings)
