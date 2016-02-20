@@ -46,6 +46,8 @@ val settings = Seq(
   )
 )
 
+lazy val root = project.enablePlugins(ScalaJSPlugin)
+
 lazy val formless = project.in(file(".")).settings(settings)
   .aggregate(core, finch)
   .dependsOn(core)
@@ -59,3 +61,27 @@ lazy val finch = project.settings(settings)
 lazy val http4s = project.settings(settings)
   .settings(libraryDependencies ++= Seq(http4sDsl, http4sBlaze))
   .dependsOn(core)
+
+val scalaJsReactVersion = "0.10.4"
+val scalaCssVersion = "0.3.1"
+lazy val ui = project.enablePlugins(ScalaJSPlugin).settings(settings)
+  .settings(
+    Seq(
+      libraryDependencies ++= Seq(
+         "com.github.japgolly.scalajs-react" %%% "core" % scalaJsReactVersion,
+          "com.github.japgolly.scalajs-react" %%% "extra" % scalaJsReactVersion,
+          "com.github.japgolly.scalacss" %%% "core" % scalaCssVersion,
+          "com.github.japgolly.scalacss" %%% "ext-react" % scalaCssVersion
+      ),
+      jsDependencies ++= Seq(
+        "org.webjars.bower" % "react" % "0.14.7"
+          /        "react-with-addons.js"
+          minified "react-with-addons.min.js"
+          commonJSName "React",
+        "org.webjars.bower" % "react" % "0.14.7"
+          /         "react-dom.js"
+          minified  "react-dom.min.js"
+          dependsOn "react-with-addons.js"
+          commonJSName "ReactDOM")
+    )
+  )
