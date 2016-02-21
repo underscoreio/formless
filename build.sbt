@@ -9,8 +9,9 @@ val circeParser = "io.circe" %% "circe-parser" % "0.3.0"
 val finchCore = "com.github.finagle" %% "finch-core" % "0.10.0"
 val finchCirce = "com.github.finagle" %% "finch-circe" % "0.10.0"
 
-val http4sDsl = "org.http4s" %% "http4s-dsl" % "0.12"
-val http4sBlaze = "org.http4s" %% "http4s-blaze-server" % "0.12"
+val http4sDsl = "org.http4s" %% "http4s-dsl" % "0.12.1"
+val http4sBlaze = "org.http4s" %% "http4s-blaze-server" % "0.12.1"
+val http4sCirce = "org.http4s" %% "http4s-circe" % "0.12.1"
 
 val macroParadise = compilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full)
 val kindProjector = compilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1")
@@ -47,7 +48,7 @@ val settings = Seq(
 )
 
 lazy val formless = project.in(file(".")).settings(settings)
-  .aggregate(core, finch)
+  .aggregate(core, finch, http4s)
   .dependsOn(core)
 
 lazy val core = project.settings(settings)
@@ -57,5 +58,5 @@ lazy val finch = project.settings(settings)
   .dependsOn(core)
 
 lazy val http4s = project.settings(settings)
-  .settings(libraryDependencies ++= Seq(http4sDsl, http4sBlaze))
+  .settings(libraryDependencies ++= Seq(http4sDsl, http4sBlaze, http4sCirce))
   .dependsOn(core)
