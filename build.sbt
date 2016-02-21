@@ -65,8 +65,10 @@ lazy val http4s = project.settings(settings)
 val scalaJsReactVersion = "0.10.4"
 val scalaCssVersion = "0.3.1"
 lazy val ui = project.enablePlugins(ScalaJSPlugin).settings(settings)
+  .settings(workbenchSettings)
   .settings(
     Seq(
+      bootSnippet := "FormlessMain.main()",
       libraryDependencies ++= Seq(
          "com.github.japgolly.scalajs-react" %%% "core" % scalaJsReactVersion,
           "com.github.japgolly.scalajs-react" %%% "extra" % scalaJsReactVersion,
