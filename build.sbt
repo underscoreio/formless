@@ -9,8 +9,11 @@ val circeParser = "io.circe" %% "circe-parser" % "0.3.0"
 val finchCore = "com.github.finagle" %% "finch-core" % "0.10.0"
 val finchCirce = "com.github.finagle" %% "finch-circe" % "0.10.0"
 
-val http4sDsl = "org.http4s" %% "http4s-dsl" % "0.12"
-val http4sBlaze = "org.http4s" %% "http4s-blaze-server" % "0.12"
+val http4sDsl = "org.http4s" %% "http4s-dsl" % "0.12.4"
+val http4sCirce = "org.http4s" %% "http4s-circe" % "0.12.4"
+val http4sBlaze = "org.http4s" %% "http4s-blaze-server" % "0.12.4"
+
+val logback      = "ch.qos.logback"    %  "logback-classic" % "1.0.13"
 
 val macroParadise = compilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full)
 val kindProjector = compilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1")
@@ -59,7 +62,7 @@ lazy val finch = project.settings(settings)
   .dependsOn(core)
 
 lazy val http4s = project.settings(settings)
-  .settings(libraryDependencies ++= Seq(http4sDsl, http4sBlaze))
+  .settings(libraryDependencies ++= Seq(http4sDsl, http4sCirce, http4sBlaze, logback))
   .dependsOn(core)
 
 val scalaJsReactVersion = "0.10.4"
@@ -71,9 +74,9 @@ lazy val ui = project.enablePlugins(ScalaJSPlugin).settings(settings)
       bootSnippet := "FormlessMain.main()",
       libraryDependencies ++= Seq(
          "com.github.japgolly.scalajs-react" %%% "core" % scalaJsReactVersion,
-          "com.github.japgolly.scalajs-react" %%% "extra" % scalaJsReactVersion,
-          "com.github.japgolly.scalacss" %%% "core" % scalaCssVersion,
-          "com.github.japgolly.scalacss" %%% "ext-react" % scalaCssVersion
+         "com.github.japgolly.scalajs-react" %%% "extra" % scalaJsReactVersion,
+         "com.github.japgolly.scalacss" %%% "core" % scalaCssVersion,
+         "com.github.japgolly.scalacss" %%% "ext-react" % scalaCssVersion
       ),
       jsDependencies ++= Seq(
         "org.webjars.bower" % "react" % "0.14.7"
